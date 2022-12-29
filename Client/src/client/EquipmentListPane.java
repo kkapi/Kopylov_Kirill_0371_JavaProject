@@ -41,6 +41,8 @@ public class EquipmentListPane extends JPanel {
                     Equipment equipment = new Equipment();
                     equipment.setName(name);
                     equipmentListModel.addEquipment(equipment);
+                    Equipment newEquipment = ServiceManager.getInstance().getTestService().createEquipment(equipment.getName());
+                    System.out.println(newEquipment.getName());
                 }
             }
         });
@@ -49,7 +51,11 @@ public class EquipmentListPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
+                Equipment selectedEquipment = list.getSelectedValue();
+                System.out.println(selectedEquipment);
                 equipmentListModel.delete(selectedIndex);
+                ServiceManager.getInstance().getTestService().deleteEquipment(selectedEquipment.getId());
+                oneEquipmentPane.setEquipment(null);
             }
         });
 
@@ -60,8 +66,6 @@ public class EquipmentListPane extends JPanel {
                     Object selectedValue = list.getSelectedValue();
                     Equipment equipment = (Equipment) selectedValue;
                     oneEquipmentPane.setEquipment(equipment);
-                    Equipment newEquipment = ServiceManager.getInstance().getTestService().createEquipment(equipment.getName());
-                    System.out.println(newEquipment.getName());
                 }
             }
         });

@@ -428,6 +428,20 @@ public class DatabaseTest {
         return equipment;
     }
 
+    public static void deleteEquipment(String id) {
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        try {
+            String sql = "DELETE FROM equipment WHERE id = \'" + id + "\'";
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Horse getHorseById(String id) {
         return null;
     }

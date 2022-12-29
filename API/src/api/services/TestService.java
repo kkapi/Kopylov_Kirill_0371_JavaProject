@@ -31,4 +31,6 @@ public interface TestService {
 
     Equipment createEquipment(String name);
 
+    void deleteEquipment(String id);
+
 }

@@ -50,6 +50,11 @@ public class TestServiceImpl extends HessianServlet implements TestService {
     }
 
     @Override
+    public void deleteEquipment(String id) {
+        DatabaseTest.deleteEquipment(id);
+    }
+
+    @Override
     public void ping() {}
 
     @Override
