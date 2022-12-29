@@ -45,6 +45,11 @@ public class TestServiceImpl extends HessianServlet implements TestService {
     }
 
     @Override
+    public Equipment createEquipment(String name) {
+        return DatabaseTest.createEquipment(name);
+    }
+
+    @Override
     public void ping() {}
 
     @Override

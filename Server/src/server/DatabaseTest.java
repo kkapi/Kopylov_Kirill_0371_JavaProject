@@ -407,6 +407,27 @@ public class DatabaseTest {
         return equipmentList;
     }
 
+    public static Equipment createEquipment(String name) {
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        Equipment equipment = new Equipment();
+
+        try {
+
+            UUID uuid = UUID.randomUUID();
+            String sql = "INSERT INTO equipment(id, name) VALUES (\'" + uuid + "\', \'"+ name +"\')";
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+            String uuidStr = "" + uuid + "";
+            equipment.setName(name);
+            equipment.setId(uuidStr);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipment;
+    }
+
     public Horse getHorseById(String id) {
         return null;
     }

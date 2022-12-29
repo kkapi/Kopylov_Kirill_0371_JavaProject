@@ -59,8 +59,9 @@ public class EquipmentListPane extends JPanel {
                 if (e.getClickCount() == 2) {
                     Object selectedValue = list.getSelectedValue();
                     Equipment equipment = (Equipment) selectedValue;
-                    System.out.println(equipment.getName());
                     oneEquipmentPane.setEquipment(equipment);
+                    Equipment newEquipment = ServiceManager.getInstance().getTestService().createEquipment(equipment.getName());
+                    System.out.println(newEquipment.getName());
                 }
             }
         });

@@ -29,4 +29,6 @@ public interface TestService {
 
     User getUserById(String id);
 
+    Equipment createEquipment(String name);
+
 }

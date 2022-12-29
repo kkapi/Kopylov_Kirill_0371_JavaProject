@@ -25,6 +25,8 @@ public class AuthFrame extends JFrame {
         setVisible(true);
         GridBagLayout gridBagLayout = new GridBagLayout();
         panel.setLayout(gridBagLayout);
+
+
         GridBagConstraints c1 = new GridBagConstraints();
         c1.gridx = 0;
         c1.gridy = 0;

@@ -9,24 +9,51 @@ import java.awt.*;
 public class OneEquipmentPane extends JPanel {
     private Equipment equipment;
 
-    private JTextField textField = new JTextField(20);
+    private JTextField nameText = new JTextField(20);
+    private JTextField priceText = new JTextField(20);
+    private JTextField descriptonText = new JTextField(20);
+    private JTextField idText = new JTextField(20);
+
 
     public OneEquipmentPane() {
         super(new FlowLayout(FlowLayout.LEFT));
         add(new JLabel("Название:"));
-        add(textField);
+        add(nameText);
+        add(new JLabel("Цена:"));
+        add(priceText);
+        add(new JLabel("Описание:"));
+        add(descriptonText);
+        add(new JLabel("id:"));
+        add(idText);
 
-        textField.setEnabled(false);
+        nameText.setEnabled(false);
+        priceText.setEnabled(false);
+        descriptonText.setEnabled(false);
+        idText.setEnabled(false);
     }
 
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
         if (equipment != null) {
-            textField.setText(equipment.getName());
-            textField.setEnabled(true);
+            String strPrice = Integer.toString(equipment.getPrice());
+
+            nameText.setText(equipment.getName());
+            descriptonText.setText(equipment.getDescription());
+            idText.setText(equipment.getId());
+            priceText.setText(strPrice);
+
+            nameText.setEnabled(true);
+            descriptonText.setEnabled(true);
+            priceText.setEnabled(true);
         } else {
-            textField.setText("");
-            textField.setEnabled(false);
+            nameText.setText("");
+            descriptonText.setText("");
+            idText.setText("");
+            priceText.setText("");
+
+            nameText.setEnabled(false);
+            descriptonText.setEnabled(false);
+            priceText.setEnabled(false);
         }
     }
 }
