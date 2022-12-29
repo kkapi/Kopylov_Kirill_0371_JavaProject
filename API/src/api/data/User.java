@@ -7,7 +7,7 @@ public class User implements Serializable {
     private String login;
     private String name;
     private String phone;
-    private String role;
+    private Role role;
 
     public String getId() {
         return id;
@@ -41,11 +41,20 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getStringRole() {
+
+        if (this.role == Role.USER) {
+            return "Пользователь";
+        } else {
+            return "Администратор";
+        }
     }
 }

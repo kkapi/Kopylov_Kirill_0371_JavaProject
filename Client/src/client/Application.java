@@ -11,20 +11,12 @@ public class Application {
 
         try {
             ServiceManager.getInstance();
-
-            String name = ServiceManager.getInstance().getTestService().getNameById("id");
-            System.out.println("AAAAAAAAAAAAAAAAA" + name);
-
             ServiceManager.getInstance().getTestService().createDB();
-
-
-
         } catch (ConnectionException e) {
             JOptionPane.showMessageDialog(null, "Сервер не отвечает!", "Ошибка подключения", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         } catch (ApiError e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка подключения", JOptionPane.ERROR_MESSAGE);
-
         }
 
         AuthFrame authFrame = new AuthFrame();

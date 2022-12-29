@@ -1,7 +1,9 @@
 package server;
 
 import api.Error.ApiError;
+import api.data.Equipment;
 import api.data.Horse;
+import api.data.Role;
 import api.data.User;
 import com.sun.tools.jconsole.JConsoleContext;
 
@@ -12,27 +14,41 @@ import java.util.UUID;
 
 public class DatabaseTest {
     public static void main(String[] args) {
+        List<Equipment> equipmentList = new ArrayList<>();
+
         Connection conn = DataBaseManager.getInstance().getConnection();
 
         try {
-            String sql = "SELECT login FROM users WHERE id = \'userId\'";
+            String sql = "SELECT id, name, price, description, type FROM equipment";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            if (resultSet.next()) {
-                String login = resultSet.getString("login");
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                int price = resultSet.getInt("price");
+                String description = resultSet.getString("description");
+                String type = resultSet.getString("type");
 
-                System.out.println(login);
-            } else {
-                System.out.println("Пусто");
+                System.out.println(id + "\t " + name);
 
+                Equipment equipment = new Equipment();
+
+                equipment.setName(name);
+                equipment.setId(id);
+                equipment.setPrice(price);
+                equipment.setDescription(description);
+
+                equipmentList.add(equipment);
             }
 
+            System.out.println(equipmentList);
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 //        String horseName = "";
 //
 //        String url = "jdbc:postgresql://localhost:5432/ksk";
@@ -153,7 +169,7 @@ public class DatabaseTest {
                     "password VARCHAR (100) NOT NULL,\n" +
                     "phone VARCHAR (15),\n" +
                     "name VARCHAR (50),\n" +
-                    "role VARCHAR (20),\n" +
+                    "role VARCHAR (20) DEFAULT \'USER\',\n" +
                     "PRIMARY KEY (id)\n" +
                     ");";
 
@@ -185,10 +201,10 @@ public class DatabaseTest {
             String sql = "CREATE TABLE equipment (\n" +
                     "id varchar(50) NOT NULL,\n" +
                     "name varchar(50) NOT NULL,\n" +
-                    "price INT NOT NULL,\n" +
-                    "description varchar(80) NOT NULL,\n" +
+                    "price INT,\n" +
+                    "description varchar(80),\n" +
+                    "type varchar(20),\n" +
                     "PRIMARY KEY (id)\n" +
-
                     ");";
 
             Statement statement = conn.createStatement();
@@ -252,6 +268,9 @@ public class DatabaseTest {
             if (resultSet.next()) {
                 String id = resultSet.getString("id");
                 String pass = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                String phone = resultSet.getString("phone");
+                String name = resultSet.getString("name");
                 System.out.println("====id" + id + "====");
                 System.out.println("====bdpas== (" + pass + ") ====");
                 System.out.println("====formpass== (" + password + ") ====");
@@ -263,6 +282,14 @@ public class DatabaseTest {
 
                 user.setId(id);
                 user.setLogin(username);
+                user.setName(name);
+                user.setPhone(phone);
+
+                if (role.equals("USER")) {
+                    user.setRole(Role.USER);
+                } else {
+                    user.setRole(Role.ADMIN);
+                }
             } else {
                 System.out.println("Пусто");
                 throw new ApiError("Пользователя с таким login не существует");
@@ -301,6 +328,83 @@ public class DatabaseTest {
             e.printStackTrace();
         }
 
+    }
+
+    public static User getUserById(String id) {
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        User user = new User();
+
+        try {
+            String sql = "SELECT login, password, phone, name, role FROM users WHERE id = \'" + id + "\'";
+            Statement statement = null;
+            statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                String login = resultSet.getString("login");
+                String role = resultSet.getString("role");
+                String phone = resultSet.getString("phone");
+                String name = resultSet.getString("name");
+
+                user.setLogin(login);
+                user.setName(name);
+                user.setPhone(phone);
+                user.setId(id);
+
+                if (role.equals("USER")) {
+                    user.setRole(Role.USER);
+                } else {
+                    user.setRole(Role.ADMIN);
+                }
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public static List<Equipment> getAllEquipment() {
+        List<Equipment> equipmentList = new ArrayList<>();
+
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        try {
+            String sql = "SELECT id, name, price, description, type FROM equipment";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                int price = resultSet.getInt("price");
+                String description = resultSet.getString("description");
+                String type = resultSet.getString("type");
+
+                System.out.println(id + "\t " + name);
+
+                Equipment equipment = new Equipment();
+
+                equipment.setName(name);
+                equipment.setId(id);
+                equipment.setPrice(price);
+                equipment.setDescription(description);
+
+                equipmentList.add(equipment);
+            }
+
+            System.out.println(equipmentList);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return equipmentList;
     }
 
     public Horse getHorseById(String id) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AuthFrame extends JFrame {
     public AuthFrame() throws HeadlessException {
-        setTitle("Авторизация");
+        setTitle("EtuSkiBase | Авторизация");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
@@ -87,13 +87,17 @@ public class AuthFrame extends JFrame {
                     } else {
                         User user = ServiceManager.getInstance().getTestService().auth(username, password);
                         System.out.println(user);
+                        System.out.println(user.getLogin());
+                        System.out.println(user.getRole());
+                        System.out.println(user.getId());
+                        System.out.println(user.getName());
+                        System.out.println(user.getPhone());
                         dispose();
-                        MainFrame mainFrame = new MainFrame();
+                        MainFrame mainFrame = new MainFrame(user);
                         mainFrame.setSize(1200, 800);
                         mainFrame.setLocationRelativeTo(null);
                         mainFrame.setVisible(true);
                     }
-
 
                 } catch (ApiError err) {
                     JOptionPane.showMessageDialog(null, err.getMessage(), "Ошибка авторизации", JOptionPane.ERROR_MESSAGE);

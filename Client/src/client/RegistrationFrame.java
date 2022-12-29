@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class RegistrationFrame extends JFrame {
     public RegistrationFrame() throws HeadlessException {
-        setTitle("Регистрация");
+        setTitle("EtuSkiBase | Регистрация");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();

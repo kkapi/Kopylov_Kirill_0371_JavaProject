@@ -11,6 +11,5 @@ public class HorsesPane extends JPanel {
          JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new HorsesListPane(), new HorsePane());
          splitPane.setDividerLocation(200);
          add(splitPane);
-
     }
 }

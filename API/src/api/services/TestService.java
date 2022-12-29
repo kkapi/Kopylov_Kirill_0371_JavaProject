@@ -1,5 +1,6 @@
 package api.services;
 
+import api.data.Equipment;
 import api.data.Horse;
 import api.data.User;
 
@@ -14,6 +15,8 @@ public interface TestService {
 
     List<Horse> getAllHorses();
 
+    List<Equipment> getAllEquipment();
+
     void addHorse(String id, String name);
 
     void createDB();
@@ -23,5 +26,7 @@ public interface TestService {
     User auth(String username, String password);
 
     void registration(String username, String password);
+
+    User getUserById(String id);
 
 }

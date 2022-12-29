@@ -1,5 +1,6 @@
 package server;
 
+import api.data.Equipment;
 import api.data.Horse;
 import api.data.User;
 import api.services.TestService;
@@ -39,11 +40,21 @@ public class TestServiceImpl extends HessianServlet implements TestService {
     }
 
     @Override
+    public User getUserById(String id) {
+        return DatabaseTest.getUserById(id);
+    }
+
+    @Override
     public void ping() {}
 
     @Override
     public List<Horse> getAllHorses() {
         return DatabaseTest.getHorses();
+    }
+
+    @Override
+    public List<Equipment> getAllEquipment() {
+        return DatabaseTest.getAllEquipment();
     }
 
     @Override

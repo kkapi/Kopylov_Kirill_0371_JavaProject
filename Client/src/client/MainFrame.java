@@ -1,5 +1,8 @@
 package client;
 
+import api.data.Role;
+import api.data.User;
+
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
@@ -7,8 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
-    public MainFrame() throws HeadlessException {
-        super("KSK");
+    public MainFrame(User user) throws HeadlessException {
+        super("EtuSkiBase");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         try {
@@ -33,11 +36,11 @@ public class MainFrame extends JFrame {
         });
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Расписание", new JButton("Расписание")); //todo дописать расписание
         tabbedPane.addTab("База", new DataPanel());
-        tabbedPane.addTab("Профиль", exit);
-
-
+        tabbedPane.addTab("Профиль", new ProfilePanel(user, exit));
+        if (user.getRole() == Role.ADMIN) {
+            tabbedPane.addTab("Админка", new AdminPanel());
+        }
 
         add(tabbedPane);
     }
