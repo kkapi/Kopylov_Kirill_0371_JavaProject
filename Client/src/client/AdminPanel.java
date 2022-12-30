@@ -9,7 +9,7 @@ public class AdminPanel extends JPanel {
         setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.LEFT);
         tabbedPane.addTab("Экипировка", new EquipmentPane());
-        tabbedPane.addTab("Клиенты", new JButton("Клиенты"));
+        tabbedPane.addTab("Клиенты", new UsersPane());
 
         add(tabbedPane);
     }

@@ -14,35 +14,41 @@ import java.util.UUID;
 
 public class DatabaseTest {
     public static void main(String[] args) {
-        List<Equipment> equipmentList = new ArrayList<>();
+        List<User> usersList = new ArrayList<>();
 
         Connection conn = DataBaseManager.getInstance().getConnection();
 
         try {
-            String sql = "SELECT id, name, price, description, type FROM equipment";
+            String sql = "SELECT id, login, name, phone, role FROM users";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
-                int price = resultSet.getInt("price");
-                String description = resultSet.getString("description");
-                String type = resultSet.getString("type");
+                String login = resultSet.getString("login");
+                String phone = resultSet.getString("phone");
+                String role = resultSet.getString("role");
 
-                System.out.println(id + "\t " + name);
+                System.out.println(id + "\t " + login);
 
-                Equipment equipment = new Equipment();
+                User user = new User();
 
-                equipment.setName(name);
-                equipment.setId(id);
-                equipment.setPrice(price);
-                equipment.setDescription(description);
+                user.setName(name);
+                user.setId(id);
+                user.setLogin(login);
+                user.setPhone(phone);
 
-                equipmentList.add(equipment);
+                if (role.equals("USER")) {
+                    user.setRole(Role.USER);
+                } else {
+                    user.setRole(Role.ADMIN);
+                }
+
+                usersList.add(user);
             }
 
-            System.out.println(equipmentList);
+            System.out.println(usersList);
 
 
         } catch (SQLException e) {
@@ -440,6 +446,51 @@ public class DatabaseTest {
             e.printStackTrace();
         }
 
+    }
+
+    public static List<User> getAllUsers() {
+        List<User> usersList = new ArrayList<>();
+
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        try {
+            String sql = "SELECT id, login, name, phone, role FROM users";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                String login = resultSet.getString("login");
+                String phone = resultSet.getString("phone");
+                String role = resultSet.getString("role");
+
+                System.out.println(id + "\t " + login);
+
+                User user = new User();
+
+                user.setName(name);
+                user.setId(id);
+                user.setLogin(login);
+                user.setPhone(phone);
+
+                if (role.equals("USER")) {
+                    user.setRole(Role.USER);
+                } else {
+                    user.setRole(Role.ADMIN);
+                }
+
+                usersList.add(user);
+            }
+
+            System.out.println(usersList);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usersList;
     }
 
     public Horse getHorseById(String id) {

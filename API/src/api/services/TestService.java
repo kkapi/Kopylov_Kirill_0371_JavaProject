@@ -17,6 +17,8 @@ public interface TestService {
 
     List<Equipment> getAllEquipment();
 
+    List<User> getAllUsers();
+
     void addHorse(String id, String name);
 
     void createDB();

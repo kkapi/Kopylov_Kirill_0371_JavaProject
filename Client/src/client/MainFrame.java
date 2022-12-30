@@ -36,7 +36,7 @@ public class MainFrame extends JFrame {
         });
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("База", new DataPanel());
+//        tabbedPane.addTab("База", new DataPanel());
         tabbedPane.addTab("Профиль", new ProfilePanel(user, exit));
         if (user.getRole() == Role.ADMIN) {
             tabbedPane.addTab("Админка", new AdminPanel());

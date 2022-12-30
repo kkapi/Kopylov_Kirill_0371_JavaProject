@@ -68,6 +68,11 @@ public class TestServiceImpl extends HessianServlet implements TestService {
     }
 
     @Override
+    public List<User> getAllUsers() {
+        return DatabaseTest.getAllUsers();
+    }
+
+    @Override
     public void addHorse(String id, String name) {
         DatabaseTest.addHorse(id, name);
     }
