@@ -493,6 +493,23 @@ public class DatabaseTest {
         return usersList;
     }
 
+    public static void setEquipmentInfo(Equipment equipment) {
+        Connection conn = DataBaseManager.getInstance().getConnection();
+
+        try {
+            String sql = "UPDATE equipment SET name=\'" + equipment.getName() + "\'," +
+                    "price=\'" + equipment.getPrice() + "\'," +
+                    "description=\'" + equipment.getDescription() + "\'" +
+                    "WHERE id=\'" + equipment.getId() + "\'";
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Horse getHorseById(String id) {
         return null;
     }

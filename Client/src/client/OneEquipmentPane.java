@@ -5,6 +5,8 @@ import api.data.Horse;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class OneEquipmentPane extends JPanel {
     private Equipment equipment;
@@ -13,6 +15,7 @@ public class OneEquipmentPane extends JPanel {
     private JTextField priceText = new JTextField(20);
     private JTextField descriptonText = new JTextField(20);
     private JTextField idText = new JTextField(20);
+    private JButton changeInfo = new JButton("Изменить");
 
 
     public OneEquipmentPane() {
@@ -26,10 +29,23 @@ public class OneEquipmentPane extends JPanel {
         add(new JLabel("id:"));
         add(idText);
 
+        add(changeInfo);
+
         nameText.setEnabled(false);
         priceText.setEnabled(false);
         descriptonText.setEnabled(false);
         idText.setEnabled(false);
+        changeInfo.setEnabled(false);
+
+        changeInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                equipment.setName(nameText.getText());
+                equipment.setPrice(Integer.parseInt(priceText.getText()));
+                equipment.setDescription(descriptonText.getText());
+                ServiceManager.getInstance().getTestService().setEquipmentInfo(equipment);
+            }
+        });
     }
 
     public void setEquipment(Equipment equipment) {
@@ -45,6 +61,8 @@ public class OneEquipmentPane extends JPanel {
             nameText.setEnabled(true);
             descriptonText.setEnabled(true);
             priceText.setEnabled(true);
+            changeInfo.setEnabled(true);
+
         } else {
             nameText.setText("");
             descriptonText.setText("");
@@ -54,6 +72,7 @@ public class OneEquipmentPane extends JPanel {
             nameText.setEnabled(false);
             descriptonText.setEnabled(false);
             priceText.setEnabled(false);
+            changeInfo.setEnabled(false);
         }
     }
 }
