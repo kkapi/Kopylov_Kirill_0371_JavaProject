@@ -12,11 +12,13 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class EquipmentListPane extends JPanel {
+
+    private EquipmentListModel equipmentListModel = new EquipmentListModel();
+
     public EquipmentListPane(OneEquipmentPane oneEquipmentPane) {
         super(new BorderLayout());
         JButton addButton = new JButton("Добавить");
         JButton delButton = new JButton("Удалить");
-        EquipmentListModel equipmentListModel = new EquipmentListModel();
         JList<Equipment> list = new JList<>(equipmentListModel);
         list.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -77,6 +79,16 @@ public class EquipmentListPane extends JPanel {
         add(buttonPanel, BorderLayout.NORTH);
         add(list, BorderLayout.CENTER);
 
+        updEquipmentList();
+
+        oneEquipmentPane.setEquipmentListPane(this);
+
+    }
+
+    public void updEquipmentList() {
+        if (equipmentListModel.getSize() != 0) {
+            equipmentListModel.clearEquipment();
+        }
         List<Equipment> allEquipment = ServiceManager.getInstance().getTestService().getAllEquipment();
         for(Equipment equipment: allEquipment) {
             equipmentListModel.addEquipment(equipment);

@@ -27,4 +27,9 @@ public class EquipmentListModel extends AbstractListModel {
         Equipment removeEquipment = list.remove(index);
         fireIntervalRemoved(removeEquipment, index, index);
     }
+
+    public void clearEquipment() {
+        list.clear();
+    }
+
 }

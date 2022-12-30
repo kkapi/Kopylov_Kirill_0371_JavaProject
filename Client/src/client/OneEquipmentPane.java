@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 public class OneEquipmentPane extends JPanel {
     private Equipment equipment;
 
+    private EquipmentListPane equipmentListPane;
+
     private JTextField nameText = new JTextField(20);
     private JTextField priceText = new JTextField(20);
     private JTextField descriptonText = new JTextField(20);
@@ -44,6 +46,7 @@ public class OneEquipmentPane extends JPanel {
                 equipment.setPrice(Integer.parseInt(priceText.getText()));
                 equipment.setDescription(descriptonText.getText());
                 ServiceManager.getInstance().getTestService().setEquipmentInfo(equipment);
+                equipmentListPane.updEquipmentList();
             }
         });
     }
@@ -75,4 +78,9 @@ public class OneEquipmentPane extends JPanel {
             changeInfo.setEnabled(false);
         }
     }
+
+    public void setEquipmentListPane(EquipmentListPane equipmentListPane) {
+        this.equipmentListPane = equipmentListPane;
+    }
+
 }
